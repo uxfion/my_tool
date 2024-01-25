@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 
 class ChatClient:
-    def __init__(self, api_key, base_url, model="gpt-3.5-turbo-1106"):
+    def __init__(self, api_key, base_url, model="gpt-3.5-turbo-1106", *args, **kwargs):
         self.client = openai.OpenAI(api_key=api_key, base_url=base_url)
         self.default_model = model
 
