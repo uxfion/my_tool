@@ -167,23 +167,4 @@ async def main():
 
 
 if __name__ == "__main__":
-    # client = ChatClient(**config)
-
-    # # # 普通聊天
-    # # normal_prompt = "中国首都在哪里？"
-    # # print(client.chat(normal_prompt))
-
-    # # JSON格式聊天
-    # content = "1.这是第一句话。2.这是第二句话。3.这是第三句话。"
-    # prompt = f"{content}\n将这段话断句，不要修改原来段落中的任何字符"
-    # json_schema = '''{
-    #     "sents": "sents_list",
-    #     "count": "len_of_sents_list"
-    # }'''
-    # # print(client.chat_json(prompt, json_schema))
-    # result = client.chat_json(prompt, json_schema)
-    # count = result["count"]
-    # sents = result["sents"]
-    # print(count)
-    # print(sents)
     asyncio.run(main())
