@@ -15,10 +15,10 @@ vim .env
 
 ### Use in Python
 
-- Necessary configuration.
+- Necessary configuration
 
 ```python
-from my_tool.openai_tool import *
+from my_tool.openai_tool import ChatClient, AsyncChatClient
 import os
 from dotenv import load_dotenv
 
@@ -33,7 +33,7 @@ config = {
 }
 ```
 
-- Single chat.
+- Single chat
 
 ```python
 client = ChatClient(**config)
@@ -58,6 +58,64 @@ print(count)
 print(sents)
 ```
 
+- Async chat
+
+```python
+import asyncio
 
 
+async def main():
+    async_client = AsyncChatClient(**config)
+
+    prompts = [
+        "Hello, what's the weather today?",
+        "Tell me a joke.",
+        "How does quantum computing work?",
+        "越南首都在哪？",
+        "瑞士首都在哪？"
+    ]
+
+    responses = await async_client.batch_chat(prompts)
+
+    print("\n\n\n")
+    for prompt, response in zip(prompts, responses):
+        print("============")
+        print(f"Prompt: {prompt}")
+        print(f"Response: {response}")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+- if you want to control asyncio by yourself, you can call `async_client.chat()` and `async_client.chat_json` directly
+
+```python
+async def main():
+    async_client = AsyncChatClient(**config)
+
+    prompts = [
+        "Hello, what's the weather today?",
+        "Tell me a joke.",
+        "How does quantum computing work?",
+        "越南首都在哪？",
+        "瑞士首都在哪？"
+    ]
+
+    tasks = []
+    for prompt in prompts:
+        task = async_client.chat(prompt)
+        tasks.append(task)
+    responses = await asyncio.gather(*tasks)
+
+    print("\n\n\n")
+    for prompt, response in zip(prompts, responses):
+        print("============")
+        print(f"Prompt: {prompt}")
+        print(f"Response: {response}")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
 
